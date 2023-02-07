@@ -1,5 +1,5 @@
 const initialState = {
-  products: [],
+  productsData: [],
   loading: true,
 }
 
@@ -12,12 +12,6 @@ const productsReducers = (state = initialState, action: any) => {
         loading: false,
       }
 
-    case "getCategories":
-      return {
-        ...state,
-        categories: action.payload,
-        loading: false,
-      }
     case "getProductsByCategory":
       return {
         ...state,
@@ -37,3 +31,5 @@ const productsReducers = (state = initialState, action: any) => {
       return state
   }
 }
+
+export default productsReducers
