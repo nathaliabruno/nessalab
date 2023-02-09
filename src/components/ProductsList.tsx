@@ -8,6 +8,7 @@ import {
   ResourceItem,
   Text,
   ChoiceList,
+  Thumbnail,
 } from "@shopify/polaris"
 import { useState, useCallback, useEffect } from "react"
 import { fetchProducts, filterByCategory } from "@/utils/axios-requests"
@@ -15,7 +16,7 @@ import { IProduct } from "@/utils/types"
 
 const ProductsList = ({ filterList, firstProducts }) => {
   const [categoryFilter, setCategoryFilter] = useState(null)
-  const [sortValue, setSortValue] = useState("ASC")
+  const [sortValue, setSortValue] = useState("asc")
   const [products, setProducts] = useState(firstProducts)
 
   const handleCategoryFilterChange = useCallback(
@@ -120,8 +121,8 @@ const ProductsList = ({ filterList, firstProducts }) => {
         renderItem={renderItem}
         sortValue={sortValue}
         sortOptions={[
-          { label: "A -> Z", value: "ASC" },
-          { label: "Z -> A", value: "DESC" },
+          { label: "ASC", value: "asc" },
+          { label: "DESC", value: "desc" },
         ]}
         onSortChange={(selected) => {
           setSortValue(selected)
@@ -134,7 +135,7 @@ const ProductsList = ({ filterList, firstProducts }) => {
 
   function renderItem(item: IProduct) {
     const { id, title, price, description, category, image, rating } = item
-    const media = <Avatar source={image} customer size="medium" name={title} />
+    const media = <Thumbnail source={image} size="large" alt={title} />
     const shortcutActions = [
       {
         content: "Add to Cart",
