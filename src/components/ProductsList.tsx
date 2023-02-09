@@ -1,18 +1,12 @@
 import {
-  TextField,
   Filters,
-  Button,
   Card,
   ResourceList,
-  Avatar,
-  ResourceItem,
-  Text,
-  ChoiceList,
-  Thumbnail,
+  OptionList,
 } from "@shopify/polaris"
 import { useState, useCallback, useEffect } from "react"
 import { fetchProducts, filterByCategory } from "@/utils/axios-requests"
-import { IProduct } from "@/utils/types"
+import RenderItem from "./ProductListItem"
 
 const ProductsList = ({ filterList, firstProducts }) => {
   const [categoryFilter, setCategoryFilter] = useState(null)
@@ -37,23 +31,6 @@ const ProductsList = ({ filterList, firstProducts }) => {
     plural: "products",
   }
 
-  const items = [
-    {
-      id: 112,
-      url: "customers/341",
-      name: "Mae Jemison",
-      location: "Decatur, USA",
-      latestOrderUrl: "orders/1456",
-    },
-    {
-      id: 212,
-      url: "customers/256",
-      name: "Ellen Ochoa",
-      location: "Los Angeles, USA",
-      latestOrderUrl: "orders/1457",
-    },
-  ]
-
   useEffect(() => {
     categoryFilter
       ? filterByCategory(sortValue, categoryFilter).then((data) =>
@@ -76,10 +53,9 @@ const ProductsList = ({ filterList, firstProducts }) => {
       key: "categories",
       label: "Category",
       filter: (
-        <ChoiceList
+        <OptionList
           title="Categories"
-          titleHidden
-          choices={mapCategoryChoices()}
+          options={mapCategoryChoices()}
           selected={categoryFilter || []}
           onChange={handleCategoryFilterChange}
         />
@@ -106,19 +82,15 @@ const ProductsList = ({ filterList, firstProducts }) => {
       hideQueryField={true}
       onQueryChange={() => {}}
       onQueryClear={() => {}}
-    >
-      <div style={{ paddingLeft: "8px" }}>
-        <Button onClick={() => console.log("New filter saved")}>Save</Button>
-      </div>
-    </Filters>
+    />
   )
 
   return (
-    <Card title="Products List">
+    <Card>
       <ResourceList
         resourceName={resourceName}
         items={products}
-        renderItem={renderItem}
+        renderItem={RenderItem}
         sortValue={sortValue}
         sortOptions={[
           { label: "ASC", value: "asc" },
@@ -132,37 +104,6 @@ const ProductsList = ({ filterList, firstProducts }) => {
       />
     </Card>
   )
-
-  function renderItem(item: IProduct) {
-    const { id, title, price, description, category, image, rating } = item
-    const media = <Thumbnail source={image} size="large" alt={title} />
-    const shortcutActions = [
-      {
-        content: "Add to Cart",
-        onAction: () => {
-          console.log("added - implement redux store")
-        },
-      },
-    ]
-    return (
-      <ResourceItem
-        id={`${id}`}
-        media={media}
-        accessibilityLabel={`View details for ${title}`}
-        shortcutActions={shortcutActions}
-        onClick={() => console.log("added - implement redux store")}
-        persistActions
-      >
-        <Text variant="bodyMd" fontWeight="bold" as="h3">
-          {title}
-        </Text>
-        <div>{description}</div>
-        <Text variant="bodySm" fontWeight="bold" as="p">
-          {price}
-        </Text>
-      </ResourceItem>
-    )
-  }
 
   function disambiguateLabel(key, value) {
     switch (key) {
