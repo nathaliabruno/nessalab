@@ -1,18 +1,25 @@
+import { getItemQuantity } from "@/utils"
 import { Button, TextField } from "@shopify/polaris"
-import { useState, useCallback } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { incrementQuantity, decrementQuantity } from "@/redux/cartSlice"
 
-const QtySelector = () => {
-  const [value, setValue] = useState("1")
+const QtySelector = (id) => {
+  const cart = useSelector((state) => state.cart)
 
-  const handleChange = useCallback((newValue) => setValue(newValue), [])
+  const dispatch = useDispatch()
+
+  const handleQtyChange = (type: string) => {
+    type === "increment"
+      ? dispatch(incrementQuantity)
+      : dispatch(decrementQuantity)
+  }
 
   return (
     <div style={{ maxWidth: "140px" }}>
       <TextField
         label="Quantity"
         type="text"
-        value={value}
-        onChange={handleChange}
+        value={cart?.item ? `${getItemQuantity(cart, id)}` : "0"}
         autoComplete="off"
         labelHidden={true}
         maxLength={2}
@@ -20,8 +27,16 @@ const QtySelector = () => {
         inputMode="numeric"
         align="center"
         disabled
-        connectedLeft={<Button primary>-</Button>}
-        connectedRight={<Button primary>+</Button>}
+        connectedLeft={
+          <Button onClick={() => handleQtyChange("decrement")} primary>
+            -
+          </Button>
+        }
+        connectedRight={
+          <Button onClick={() => handleQtyChange("increment")} primary>
+            +
+          </Button>
+        }
       />
     </div>
   )

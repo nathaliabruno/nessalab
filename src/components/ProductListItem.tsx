@@ -45,7 +45,7 @@ const RenderItem = (item: IProduct) => {
           <Button onClick={() => handleAddToCart()} primary>
             Add to Cart
           </Button>
-          {/* <QtySelector /> */}
+          <QtySelector id={id} />
         </Stack.Item>
       </Stack>
     </ResourceItem>
