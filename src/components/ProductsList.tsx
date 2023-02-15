@@ -7,19 +7,24 @@ import {
 import { useState, useCallback, useEffect } from "react"
 import { fetchProducts, filterByCategory } from "@/utils/axios-requests"
 import RenderItem from "./ProductListItem"
+import { IProduct } from "@/utils/types"
 
-const ProductsList = ({ filterList, firstProducts }) => {
-  const [categoryFilter, setCategoryFilter] = useState(null)
+interface ProductsListProps {
+  filterList: string[]
+  firstProducts: IProduct[]
+}
+const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
+  const [categoryFilter, setCategoryFilter] = useState("")
   const [sortValue, setSortValue] = useState("asc")
   const [products, setProducts] = useState(firstProducts)
 
   const handleCategoryFilterChange = useCallback(
-    (value) => setCategoryFilter(value),
+    (value: any) => setCategoryFilter(value),
     []
   )
 
   const handleCategoryFilterRemove = useCallback(
-    () => setCategoryFilter(null),
+    () => setCategoryFilter(""),
     []
   )
   const handleClearAll = useCallback(() => {
@@ -56,7 +61,7 @@ const ProductsList = ({ filterList, firstProducts }) => {
         <OptionList
           title="Categories"
           options={mapCategoryChoices()}
-          selected={categoryFilter || []}
+          selected={[categoryFilter]}
           onChange={handleCategoryFilterChange}
         />
       ),
@@ -106,7 +111,7 @@ const ProductsList = ({ filterList, firstProducts }) => {
     </Card>
   )
 
-  function disambiguateLabel(key, value) {
+  function disambiguateLabel(key: string, value: string) {
     switch (key) {
       case "categories":
         return `Category: ${value}`
@@ -115,7 +120,7 @@ const ProductsList = ({ filterList, firstProducts }) => {
     }
   }
 
-  function isEmpty(value) {
+  function isEmpty(value: any) {
     if (Array.isArray(value)) {
       return value.length === 0
     } else {

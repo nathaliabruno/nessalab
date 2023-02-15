@@ -17,7 +17,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ products }) {
+export default function Home(products: IProduct[]) {
   const [categories, setCategories] = useState()
   useEffect(() => {
     fetchCategories().then((data) => setCategories(data))

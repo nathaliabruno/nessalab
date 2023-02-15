@@ -1,13 +1,15 @@
 import { IProduct } from "@/utils/types"
 import { createSlice } from "@reduxjs/toolkit"
+
+type CartState = any
+
+const initialState: CartState = { cart: [] }
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    cart: [],
-  },
+  initialState: initialState,
   reducers: {
     addToCart: (state, action) => {
-      const itemInCart = state.cart.find(
+      const itemInCart: any = state.cart.find(
         (item: IProduct) => item.id === action.payload.id
       )
       if (itemInCart) {
@@ -17,13 +19,13 @@ const cartSlice = createSlice({
       }
     },
     incrementQuantity: (state, action) => {
-      const item = state.cart.find(
+      const item: any = state.cart.find(
         (item: IProduct) => item.id === action.payload
       )
       item.quantity++
     },
     decrementQuantity: (state, action) => {
-      const item = state.cart.find(
+      const item: any = state.cart.find(
         (item: IProduct) => item.id === action.payload
       )
       if (item.quantity === 1) {
@@ -43,3 +45,4 @@ const cartSlice = createSlice({
 export const cartReducer = cartSlice.reducer
 export const { addToCart, incrementQuantity, decrementQuantity, removeItem } =
   cartSlice.actions
+

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { incrementQuantity, decrementQuantity } from "@/redux/cartSlice"
 import { useEffect, useState } from "react"
 
-const QtySelector = (id) => {
+const QtySelector = (id: any) => {
   const cart = useSelector((state: any) => state.cart)
   const [quantity, setQuantity] = useState(0)
 
@@ -19,7 +19,7 @@ const QtySelector = (id) => {
       <TextField
         label="Quantity"
         type="text"
-        value={quantity}
+        value={`${quantity}`}
         autoComplete="off"
         labelHidden={true}
         maxLength={2}

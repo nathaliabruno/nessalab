@@ -2,7 +2,10 @@ import { convertToMoney } from "@/utils"
 import { Card, Stack, Text } from "@shopify/polaris"
 import React from "react"
 
-const OrderSummary = (totals) => {
+const OrderSummary = (totals: {
+  qty: string | number
+  totalAmount: number
+}) => {
   return (
     <Card sectioned title="OrderSummary">
       <Card.Section>
