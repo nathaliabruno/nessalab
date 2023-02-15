@@ -7,14 +7,13 @@ import {
 import { useState, useCallback, useEffect } from "react"
 import { fetchProducts, filterByCategory } from "@/utils/axios-requests"
 import RenderItem from "./ProductListItem"
-import { IProduct } from "@/utils/types"
 
 interface ProductsListProps {
-  filterList: string[]
-  firstProducts: IProduct[]
+  filterList: any
+  firstProducts: any
 }
 const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
-  const [categoryFilter, setCategoryFilter] = useState("")
+  const [categoryFilter, setCategoryFilter] = useState(null)
   const [sortValue, setSortValue] = useState("asc")
   const [products, setProducts] = useState(firstProducts)
 
@@ -24,7 +23,7 @@ const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
   )
 
   const handleCategoryFilterRemove = useCallback(
-    () => setCategoryFilter(""),
+    () => setCategoryFilter(null),
     []
   )
   const handleClearAll = useCallback(() => {
@@ -61,7 +60,7 @@ const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
         <OptionList
           title="Categories"
           options={mapCategoryChoices()}
-          selected={[categoryFilter]}
+          selected={[categoryFilter || ""]}
           onChange={handleCategoryFilterChange}
         />
       ),
@@ -92,7 +91,7 @@ const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
 
   return (
     <Card>
-      {products && (
+      {products.length && (
         <ResourceList
           resourceName={resourceName}
           items={products}
@@ -111,7 +110,7 @@ const ProductsList = ({ filterList, firstProducts }: ProductsListProps) => {
     </Card>
   )
 
-  function disambiguateLabel(key: string, value: string) {
+  function disambiguateLabel(key: string, value: any) {
     switch (key) {
       case "categories":
         return `Category: ${value}`

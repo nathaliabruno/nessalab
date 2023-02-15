@@ -39,7 +39,7 @@ export default function Home(products: IProduct[]) {
       </Head>
       <Header />
       <main style={{ padding: "30px" }}>
-        {categories && products && (
+        {products && categories && (
           <ProductsList filterList={categories} firstProducts={products} />
         )}
       </main>
