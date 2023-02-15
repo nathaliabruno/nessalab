@@ -10,8 +10,9 @@ import {
   Icon,
 } from "@shopify/polaris"
 import QtySelector from "./QtySelectos"
+import { IProduct } from "@/utils/types"
 
-const CartItem = ({ id, image, title, price }) => {
+const CartItem = ({ id, image, title, price }: IProduct) => {
   const dispatch = useDispatch()
 
   return (
