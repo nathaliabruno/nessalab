@@ -44,9 +44,8 @@ const CartItem = ({ id, image, title, price }: IProduct) => {
                 outline
                 destructive
                 onClick={() => dispatch(removeItem(id))}
-              >
-                <Icon source={DeleteMinor} />
-              </Button>
+                icon={DeleteMinor}
+              />
             </Stack>
           </Stack.Item>
         </Stack>
