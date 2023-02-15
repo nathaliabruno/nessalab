@@ -9,23 +9,26 @@ import {
 } from "@shopify/polaris"
 import { useDispatch } from "react-redux"
 import { addToCart } from "@/redux/cartSlice"
-import QtySelector from "./QtySelectos"
 
 const RenderItem = (item: IProduct) => {
-  const { id, title, price, description, category, image, rating } = item
+  const { id, title, price, description, category, image } = item
+
   const dispatch = useDispatch()
+
   const media = <Thumbnail source={image} size="large" alt={title} />
 
   const handleAddToCart = () => {
     dispatch(addToCart({ id, title, price, image, category }))
   }
+
   return (
     <ResourceItem
       id={`${id}`}
       media={media}
       accessibilityLabel={`View details for ${title}`}
-      onClick={(e) => e.preventDefault}
-      persistActions
+      onClick={() => {
+        return false
+      }}
       verticalAlignment="center"
     >
       <Stack wrap={false}>
@@ -42,10 +45,9 @@ const RenderItem = (item: IProduct) => {
           </Text>
         </Stack.Item>
         <Stack.Item>
-          <Button onClick={() => handleAddToCart()} primary>
+          <Button onClick={handleAddToCart} primary>
             Add to Cart
           </Button>
-          <QtySelector id={id} />
         </Stack.Item>
       </Stack>
     </ResourceItem>

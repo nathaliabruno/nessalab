@@ -33,7 +33,7 @@ const Header = () => {
               }}
             >
               <Button outline icon={CheckoutMajor}>
-                {`${getTotalQuantity(cart) || 0}`}
+                {cart ? `${getTotalQuantity(cart)}` : "0"}
               </Button>
             </Link>
           </Stack.Item>

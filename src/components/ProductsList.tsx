@@ -87,21 +87,22 @@ const ProductsList = ({ filterList, firstProducts }) => {
 
   return (
     <Card>
-      <ResourceList
-        resourceName={resourceName}
-        items={products}
-        renderItem={RenderItem}
-        sortValue={sortValue}
-        sortOptions={[
-          { label: "ASC", value: "asc" },
-          { label: "DESC", value: "desc" },
-        ]}
-        onSortChange={(selected) => {
-          setSortValue(selected)
-          console.log(`Sort option changed to ${selected}.`)
-        }}
-        filterControl={filterControl}
-      />
+      {products && (
+        <ResourceList
+          resourceName={resourceName}
+          items={products}
+          renderItem={RenderItem}
+          sortValue={sortValue}
+          sortOptions={[
+            { label: "ASC", value: "asc" },
+            { label: "DESC", value: "desc" },
+          ]}
+          onSortChange={(selected) => {
+            setSortValue(selected)
+          }}
+          filterControl={filterControl}
+        />
+      )}
     </Card>
   )
 

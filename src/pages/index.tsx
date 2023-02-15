@@ -37,8 +37,8 @@ export default function Home({ products }) {
           href="https://uploads-ssl.webflow.com/6284f50b95ff173d79dff367/62b5c943feeafe24cf21b825_Fav-32.png"
         />
       </Head>
-      <main>
-        <Header />
+      <Header />
+      <main style={{ padding: "30px" }}>
         {categories && products && (
           <ProductsList filterList={categories} firstProducts={products} />
         )}
