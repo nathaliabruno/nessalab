@@ -5,7 +5,7 @@ import { incrementQuantity, decrementQuantity } from "@/redux/cartSlice"
 import { useEffect, useState } from "react"
 
 const QtySelector = (id) => {
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state: any) => state.cart)
   const [quantity, setQuantity] = useState(0)
 
   const dispatch = useDispatch()

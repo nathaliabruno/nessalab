@@ -14,7 +14,7 @@ import OrderSummary from "@/components/OrderSummary"
 import { getTotalPrice, getTotalQuantity } from "@/utils"
 
 export default function Cart() {
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state: any) => state.cart)
   const resourceName = {
     singular: "product",
     plural: "products",
