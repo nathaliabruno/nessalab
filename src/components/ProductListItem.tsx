@@ -31,7 +31,7 @@ const RenderItem = (item: IProduct) => {
       }}
       verticalAlignment="center"
     >
-      <Stack wrap={false}>
+      <Stack>
         <Stack.Item fill>
           <Text variant="bodyMd" fontWeight="bold" as="h3">
             {title}

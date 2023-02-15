@@ -25,7 +25,7 @@ const CartItem = ({ id, image, title, price }) => {
         }}
         verticalAlignment="center"
       >
-        <Stack wrap={false}>
+        <Stack>
           <Stack.Item fill>
             <Text variant="bodyMd" fontWeight="bold" as="h3">
               {title}
@@ -37,16 +37,16 @@ const CartItem = ({ id, image, title, price }) => {
             </Text>
           </Stack.Item>
           <Stack.Item>
-            <QtySelector id={id} />
-          </Stack.Item>
-          <Stack.Item>
-            <Button
-              outline
-              destructive
-              onClick={() => dispatch(removeItem(id))}
-            >
-              <Icon source={DeleteMinor} />
-            </Button>
+            <Stack wrap={false}>
+              <QtySelector id={id} />
+              <Button
+                outline
+                destructive
+                onClick={() => dispatch(removeItem(id))}
+              >
+                <Icon source={DeleteMinor} />
+              </Button>
+            </Stack>
           </Stack.Item>
         </Stack>
       </ResourceItem>
